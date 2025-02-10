@@ -8,6 +8,9 @@ const postsRouter = require('./routers/posts');
 // definiamo l'uso di una cartella per i file statici
 app.use(express.static('public'));
 
+
+app.use(express.json());
+
 // definiamo la rotta home
 app.get('/', (req, res) => {
     res.send("Ciao sono la rotta Home, della mia pizzeria!!!");

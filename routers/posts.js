@@ -14,7 +14,7 @@ router.get('/:id', postController.show);
 
 // store
 router.post('/', function (req, res) {
-    res.send('Creazione nuova pizza');
+    router.post('/', postController.store);
 });
 
 // update
@@ -24,7 +24,7 @@ router.put('/:id', function (req, res) {
 
 // modify
 router.patch('/:id', function (req, res) {
-    res.send('Modifica parziale della pizza ' + req.params.id);
+    router.put('/:id', postController.update);
 });
 
 // destroy

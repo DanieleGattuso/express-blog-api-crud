@@ -37,15 +37,70 @@ function show(req, res) {
 
 // Funzione per creare un nuovo post (da implementare se necessario)
 function store(req, res) {
-    res.send('Creazione nuova pizza (da implementare)');
+    // res.send('Creazione nuovo post ')
+    // creiamo il nuovo id incrementando l'ultimo presente
+    const newId = posts[posts.length - 1].id + 1;
+
+    // Creiamo un nuovo oggetto post
+    const newPost = {
+        id: newId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    }
+
+    // Aggiungiamo il nuovo post ai posts
+    posts.push(newPost);
+
+    // controlliamo
+    console.log(posts);
+
+    // Restituiamo lo status corretto e il post appena creata
+    res.status(201);
+
+    res.json(newPost);
+
 }
 
 // Funzione per aggiornare completamente un post (da implementare se necessario)
 function update(req, res) {
-    res.send('Modifica integrale della pizza (da implementare)');
+    // res.send('Lista dei post ' + req.params.id);
+
+    // recuperiamo l'id dall' URL e trasformiamolo in numero
+    const id = parseInt(req.params.id)
+
+    // cerchiamo il post tramite id
+    const post = posts.find(post => post.id === id);
+
+    // controlliamo se il parametro inserito esiste
+    if(!post) {
+        // ritorno lo stato di errore 404, non trovato
+        res.status(404);
+
+        // ritorno un messaggio di errore (formato json)
+        return res.json({
+            error: "Not Found",
+            message: "Pizza non trovata"
+        })
+    }
+
+    //  modifichiamo i dati del post trovato
+    post.title = req.body.title;
+    post.content = req.body.content;
+    post.image = req.body.image;
+    post.tags = req.body.tags;
+
+    // stampiamo in console i posts
+    console.log(posts);
+
+    // ritorniamo l'oggetto modificato
+    res.json(post);
+
+
 }
 
-// Funzione per eliminare un post
+// Funzionee  per eliminarun post
 function destroy(req, res) {
     // Convertiamo l'id passato come parametro in un numero intero
     const id = parseInt(req.params.id);
@@ -69,4 +124,4 @@ function destroy(req, res) {
 }
 
 // Esportiamo tutte le funzioni per essere utilizzate dal router
-module.exports = { index, show, store, update, destroy };
+module.exports = { index, show, store, update, destroy }
