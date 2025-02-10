@@ -5,17 +5,19 @@ const port = 3000
 const postsRouter = require('./routers/posts');
 
 
+// importiamo il middleware di gestione errore server
+const errorsHandler = require("./middlewares/errorsHandler");
+
+// importiamo il middleware di gestione errore 404
+const notFound = require("./middlewares/notFound");
+
 // definiamo l'uso di una cartella per i file statici
 app.use(express.static('public'));
 
 
 app.use(express.json());
 
-// importiamo il middleware di gestione errore server
-const errorsHandler = require("./middlewares/errorsHandler");
 
-// importiamo il middleware di gestione errore 404
-const notFound = require("./middlewares/notFound");
 
 // definiamo la rotta home
 app.get('/', (req, res) => {
